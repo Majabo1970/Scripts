@@ -1,0 +1,101 @@
+1. git init
+   - Inicializa un nuevo repositorio Git en el directorio actual.
+
+2. git clone [URL]
+   - Clona un repositorio remoto en tu máquina local.
+
+3. git add [archivo]
+   - Agrega cambios al área de preparación (staging).
+
+4. git commit -m "mensaje"
+   - Crea un nuevo commit con los cambios en el área de preparación.
+
+5. git status
+   - Muestra el estado actual del repositorio, incluyendo archivos sin rastrear y cambios pendientes.
+
+6. git log
+   - Muestra la historia de los commits.
+
+7. git branch
+   - Muestra una lista de ramas locales y destaca la rama actual.
+
+8. git checkout [rama]
+   - Cambia a la rama especificada.
+
+9. git merge [rama]
+   - Fusiona la rama especificada con la rama actual.
+
+10. git pull
+    - Obtiene cambios del repositorio remoto y los fusiona con la rama actual.
+
+11. git push [remoto] [rama]
+    - Envía los commits locales a un repositorio remoto.
+
+12. git remote -v
+    - Muestra la lista de repositorios remotos configurados.
+
+13. git fetch [remoto]
+    - Obtiene los cambios del repositorio remoto, pero no los fusiona.
+
+14. git diff
+    - Muestra las diferencias entre el área de trabajo y el área de preparación.
+
+15. git reset [archivo]
+    - Retira un archivo del área de preparación.
+
+16. git rm [archivo]
+    - Elimina un archivo del repositorio y del área de preparación.
+
+17. git stash
+    - Guarda temporalmente los cambios no comprometidos.
+
+18. git tag -a [nombre] -m "mensaje"
+    - Crea una etiqueta anotada para un commit específico.
+
+19. git remote add [nombre] [URL]
+    - Agrega un nuevo repositorio remoto con el nombre especificado.
+
+20. git remote remove [nombre]
+    - Elimina un repositorio remoto.
+
+21. git remote rename [nombre_antiguo] [nombre_nuevo]
+    - Cambia el nombre de un repositorio remoto.
+
+22. git remote show [nombre]
+    - Muestra información detallada sobre un repositorio remoto.
+
+23. git branch -d [rama]
+    - Elimina una rama local después de asegurarse de que los cambios estén fusionados.
+
+24. git push --tags
+    - Envía todas las etiquetas locales al repositorio remoto.
+
+25. git pull --rebase
+    - Obtiene los cambios remotos y los aplica mediante rebase en lugar de merge.
+
+26. git log --graph --oneline --all
+    - Muestra una representación gráfica de la historia de los commits.
+
+27. git cherry-pick [commit]
+    - Aplica los cambios de un commit específico a la rama actual.
+
+28. git revert [commit]
+    - Crea un nuevo commit que deshace los cambios de un commit específico.
+
+29. git config --global alias.[nombre] [comando]
+    - Crea un alias para un comando Git.
+
+30. git bisect
+    - Ayuda en la búsqueda de un commit específico que introdujo un problema.
+	
+	
+-------------------------------------------------------------------------------------------------------------------------
+
+Log
+git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+Status
+git config --global alias.s status --short
+
+Alternativa útil de status
+git config --global alias.s status -sb

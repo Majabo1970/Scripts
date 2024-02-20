@@ -1,0 +1,32 @@
+1. sp_helpdb:
+   - Propósito: Proporciona información detallada sobre todas las bases de datos en el servidor.
+
+2. sp_who:
+   - Propósito: Muestra información sobre las sesiones activas en el servidor, incluyendo detalles como el ID de la sesión, el nombre de usuario, la consulta en ejecución, etc.
+
+3. sp_helptext:
+   - Propósito: Muestra el texto de definición (código fuente) de un procedimiento almacenado, vista o función.
+
+4. sp_helpindex:
+   - Propósito: Proporciona información detallada sobre los índices de una tabla específica, incluyendo nombres, columnas y tipo de índice.
+
+5. sp_spaceused:
+   - Propósito: Muestra información sobre el espacio utilizado y disponible en una base de datos, así como detalles sobre el tamaño de las tablas y los índices.
+
+6. sp_tables:
+   - Propósito: Devuelve una lista de tablas en una base de datos específica, incluyendo detalles como el nombre de la tabla y el tipo de tabla.
+
+7. sp_columns:
+   - Propósito: Devuelve información sobre las columnas de una tabla específica, incluyendo detalles como el nombre de la columna, el tipo de datos y la longitud.
+
+8. sp_helpconstraint:
+   - Propósito: Proporciona información sobre las restricciones (claves primarias, claves foráneas, etc.) en una tabla específica.
+
+9. sp_rename:
+   - Propósito: Cambia el nombre de un objeto en la base de datos, como una tabla, columna, índice, etc.
+
+10. sp_adduser, sp_dropuser, sp_change_users_login:
+    - Propósito: Estas stored procedures se utilizan para administrar usuarios en la base de datos, como agregar, eliminar o cambiar la asignación de un usuario a un inicio de sesión.
+
+11. sp_help:
+    - Propósito: Proporciona información sobre un objeto en la base de datos, como una tabla, vista o procedimiento almacenado.

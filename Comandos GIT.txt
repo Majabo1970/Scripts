@@ -1,0 +1,172 @@
+Comandos GIT
+
+/*INGRESAR USUARIO Y MAIL*/
+git config --global user.name "Mariano Bocalandro"
+git config --global user.email "mariano.bocalandro@usermail.com.ar"
+
+/*CONFIRMAR*/
+
+git config --global -e
+
+-- PARA MODIFICAR
+Tocar la letra a y modificar la linea
+Para grabar tocar ESC y escribir :W(write)Q(quit)!(ejecutar)
+
+/*INICAR REPOSITORIO*/
+git init
+
+/*ESTADO*/
+git status
+git status --short (abreviado)
+
+/*PARA AGREGAR UN ARCHIVO AL SEGUIMIENTO*/
+
+git add (nombre del archivo)
+
+/*PARA AGREGAR TODOS LOS ARCHIVOS DEL DIRECTORIO*/
+
+git add .
+
+/*PARA REMOVER UN ARCHIVO DEL STATUS*/
+
+git reset (nombre del archivo)
+
+/*PARA HACER COMMIT*/
+
+git commit -m "Primer Commit"
+
+/*RECUPERAR EL REPOSITORIO COMPLETO AL ULTIMO COMMIT*/
+
+git checkout -- .
+
+/*PARA SABER EN QUE RAMA ESTOY*/
+
+git branch
+
+/*PARA CAMBIAR EL NOMBRE DE LA RAMA*/
+
+git branch -m(modify) master main (Cambia el nombre de master a main)
+
+/*PARA BORRAR LA RAMA*/
+
+git branch -d <nombre de la rama> -f --(-f fuerza el borrado)
+
+/*PARA CAMBIAR EL NOMBRE A NIVEL GLOBAL DE LA RAMA MASTER*/
+
+git config --global init.defaultBranch <nombre>
+
+/*PARA HACER COMMIT Y ADD JUNTOS EN UN ARCHIVO CON SEGUIMIENTO*/
+
+git commit -am "<nombre del commit>"
+
+/*PARA VER LOS LOGS DEL REPOSITORIO*/
+
+git log
+git log --oneline
+
+/*PARA SUBIR A UN STATUS UN TIPO DE ARCHIVO EN PARTICULAR*/
+
+git add *.<extension> (desde el directorio raiz)
+git add <dir>/*.<extension> (desde el directorio raiz para un dir especifico)
+
+/*PARA AGREGAR TODO EL CONTENIDO DE UNA CARPETA ESPECIFICA*/
+
+git add <nombre la carpeta>/
+
+/*PARA MOSTRAR DIFERENCIAS DE ARCHIVOS*/
+
+git diff
+git diff --staged (para ver los cambios de los archivos que estan en el stage)
+
+/*PARA MODIFICAR NOMBRE DEL ULTIMO COMMIT*/
+
+git commit --amend -m "<nombre corregido>"
+
+/*PARA POSICIONARSE EN UN COMMIT ESPECIFICO*/
+
+git reset --soft HEAD^ --sirve para posicionarse en el commit posterior al HEAD.
+					   --si a este simbolo ^ le agrego un 2,3,etc me posiciona en el commit 2 o 3 o etc...
+git reset --mixed <HASH del commit> --me ubica en el commit respectivo
+git reset --hard  <HASH del commit> --me borra todos los cambios posteriores a ese commit
+
+/*PARA REFERENCIAR A CUALQUIER LOG EN ORDEN CRONOLOGICO*/
+
+git reflog --para ver el HASH del commit que quiero recuperar
+git reset --hard <HASH que quiero recuperar>
+
+/*PARA CAMBIAR EL NOMBRE DE UN ARCHIVO FISICO*/
+
+git mv <nombre del archivo ariginal> <nombre del archivo final>
+
+/*PARA BORRAR UN ARCHIVO*/
+
+git rm <nombre del archivo> --lo deja en el stage
+git commit -m "nombre del commit" --efectiviza el remove
+
+/*--------------RAMAS---------------*/
+
+/*PARA CREAR UNA RAMA*/
+
+git branch <nombre de la rama>
+git checkout -b <nombre de la rama> --me posiciona en dicha rama
+
+/*PARA IR A UNA RAMA*/
+
+git checkout <nombre de la rama>
+
+/*PARA HACER UN MERGE (UNION)*/
+
+git merge <nombre de la rama> --debo pararme en la rama a donde voy a traer los cambios
+
+/*PARA BORRAR UNA RAMA*/
+
+git branch -d <nombre de la rama> -f --(-f fuerza el borrado / opcional)
+
+/*--------------ETIQUETAS--------------*/
+
+git tag <nombre del tag>
+git tag -d <nombre del tag> 			--borra el tag
+git tag -a v1.0.0 -m "<nombre del tag>" -- -a para la version del release, -m para el mensaje
+git show <version del release> 			--para ver en detalle ese release tag
+
+/*--------------STASH---------------*/
+
+--sirve para guardar los cambios antes de un commit en una RAMA
+
+git stash						--crea el stash en la rama donde estoy
+git stash list					--muestra una lista de stash --stat (me da mas info de cada stash)
+git stash pop					--recupera el ultimo stash
+git stash clear					--borra todos los stash
+git stash apply <"stash@{2}">	--recupera un stash especifico (stash@{2} ejemplo)
+
+/*PARA MOVER, UNIR, DIVIDIR UN COMMIT*/
+
+git rebase -i HEAD~4 --abre un menu de opciones interactivas (-i) donde hago el squash
+					 --en este caso abre 4 commits desde el master
+
+git rebase -i <commit>
+
+/*Acciones en el Editor Interactivo:
+
+pick: 		Mantén el commit sin cambios.
+reword: 	Cambia el mensaje del commit.
+edit: 		Pausa el rebase para hacer cambios en ese commit.
+squash o s: Combina el commit con el anterior.
+fixup o f: 	Similar a squash, pero descarta el mensaje del commit actual.
+drop o d: 	Elimina el commit.*/
+
+/*--------------REPOSITORIO REMOTO--------------*/
+
+git remote add origin https:// *****
+git remote -v 				--lista los repositorios remotos
+git push -u origin <rama> 	--origin: nombre del repositorio, <rama> que vamos a subir
+							-- -u nos fija la rama para no tener que escribirla en el proximo push
+git push 					--tags --sube las versiones al repositorio remoto
+git clone <http> 			--baja los archivos desde la rama a la pc local
+git push -u origin <rama> 	--si solo pongo git push sube a la rama origin configurada
+git config 					--global -e --para ver la configuracion global
+git config 					--global pull.rebase true --configura de forma local general el pull en caso de conflicto
+git pull 					--actualiza los archivos modificados en el repositorio local
+git remote prune origin 	--revisa las ramas que en el remoto ya no existen
+
+

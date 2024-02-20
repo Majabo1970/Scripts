@@ -1,0 +1,64 @@
+sqr -RS -XB debcred.sqr $login/$pwd  --> SQT
+sqr -RS -XB dc_exen.sqr $login/$pwd  --> SQT
+
+-------ACTUALIZO EL ESTADO DE FORMULA-------------
+use cob_bcradgi
+go
+
+update bc_fec_formulas set
+ff_estado_form = 'FD'
+where ff_nro_formulario = 'DECRED'
+and   ff_fecha_informac = '10/31/2017'
+
+
+update bc_fec_formulas set
+ff_estado_form = 'FD'
+where ff_nro_formulario = 'DCEXEN'
+and   ff_fecha_informac = '10/31/2017'
+
+
+sqr -DEBUG -XP -XB -TB debcred.sqr $login/$pwd 1 10/31/2017 T M  --> DEBITO/CREDITO
+
+sqr -DEBUG -XP -XB -TB dc_exen.sqr $login/$pwd 1 10/31/2017 V  --> EXENTAS
+sqr -DEBUG -XP -XB -TB dc_exen.sqr $login/$pwd 1 10/31/2017 P  --> EXENTAS
+
+----------------------------HISTORICAS--------------------------------------------------------------
+sqr -DEBUG -XP -XB -TB bc_decred_his.sqr $login/$pwd 1 10/31/2017 H 10/31/2017 10/31/2017
+
+sqr -DEBUG -XP -XB -TB bc_decred_his.sqr $login/$pwd 1 10/31/2017 R 10/31/2017 10/31/2017 --> REVERSA
+
+sqr -DEBUG -XP -XB -TB dc_exen_his.sqr $login/$pwd 1 10/31/2017 H 10/31/2017 10/31/2017
+
+sqr -DEBUG -XP -XB -TB dc_exen_his.sqr $login/$pwd 1 10/31/2017 R 10/31/2017 10/31/2017 --> REVERSA
+--------------------------------------------------------------------------------------------------------
+
+
+387,388,389,390,391,392 --> Regimenes modificados
+
+select count(1) from cob_bcradgi..bc_exentas_dc --> Previo ejecucion pasaje historico
+
+select count(1) from cob_bcradgi_his..bc_exentas_dc_his --> Posterior ejecucion pasaje historico
+
+
+Oct 31 2017
+
+COLUMBIA
+
+Usr: barrejos - Pwd: Columbia147258
+
+USR: ZABALPAB
+PASS: columbia302*
+
+Tubiñez Sarabia, Jenuary
+10.253.2.32
+dominio: GRP-COLUMBIA
+TUBINSAR / columbia102* 
+
+sybase
+SYBDESA
+desarrollo/desa11
+unix
+usrhomip/Accusys123
+server: 192.168.4.172 puerto 22
+columbia80* 
+

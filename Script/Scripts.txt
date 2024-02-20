@@ -1,0 +1,163 @@
+declare
+@w_n_error int
+
+exec @w_n_error  = sp_selljujuy
+@i_c_operacion   = 'P',
+@i_f_desde       = '01/02/2010',
+@i_f_hasta       = '01/31/2010',
+@i_c_producto    = 3,
+@i_m_cargo_banco = 'N'
+
+select @w_n_error
+select top 100 * from bc_sellos_salida
+where ss_impuesto = 'SELLJUJUY'
+
+
+
+select * from transitorio..tmp_impuesto_cobro --> corresponde bc_impuesto_cobro/SELLJUJUY
+
+----------------------------------------------------------------------------------------------------------------------------------
+sp_helptext sp_re_bc_decred ,null,null,showsql
+----------------------------------------------------------------------------------------------------------------------------------
+
+export login=mbocalan --> para no poner usuario y contraseña en el comando
+export pwd=MArtes+25
+
+export login=EX4571
+export pwd=Accusys123
+
+sqr -DEBUG -XP -XB -TB debcred.sqr $login/$pwd 1 01/31/2022 T M
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/* DESCRIPCION DEL CODIGO DE REGIMEN */
+   update bc_sellos_salida set
+   ss_datos_adicionales    = ss_datos_adicionales + convert(char(84),'REG:' + (select max(ig_descripcion)
+	  from   bc_impuesto_regimen
+		 where  ig_impuesto       = SS.ss_impuesto
+		 and    ig_regimen        = SS.ss_regimen
+		 and   (isnull(ig_modulo,SS.ss_modulo)= SS.ss_modulo))) + '|'
+	  from  bc_sellos_salida SS
+		 where ss_fecha_informac = @i_fecha_informacion
+		 and   ss_impuesto       = @i_formulario
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+UNIX - SQR mbocalan/MArtes+25
+
+$ cd /programas/bcradgi/batch/fuentes9
+$ sqr -debug -XP -XB -TB bc_rend_sellos.sqr mbocalan/MArtes+25 1 12/31/2017 SELLJUJUY P 12/01/2017 
+(Ejecucion en modo debug)
+Parametro Prueba #6 :
+PROCESANDO DATOS...
+(SQR 4717) Cannot open the report output file: 'bc_rend_sellos.lis'
+(13): The file access permissions do not allow the specified action.
+
+SQR: Program Aborting.
+$
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+sqr -debug -XP -XB -TB bc_rend_sellos.sqr mbocalan/MArtes+25
+(Ejecucion en modo debug)
+Parametro Prueba #1 :  1
+Parametro Prueba #2 :  08/31/2015
+Parametro Prueba #3 :  SELLJUJUY
+Parametro Prueba #4 :  P
+Parametro Prueba #5 :  08/01/2015
+Parametro Prueba #6 :
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+Quitar las barras de fecha y poner ddmmaaaa
+str_replace(convert(varchar(10),im_f_hasta,103), '/', null)
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+-- ACTUALIZACION DE PARAMETRIA bc_p_impuestos
+use cob_bcradgi..bc_p_impuestos
+go
+
+/*BORRO REGISTRO PARA SELLJUJUY*/
+delete cob_bcradgi..bc_p_impuestos where im_impuesto = 'SELLJUJUY'
+
+
+/*CONTROL ERROR DE BORRADO*/
+if @@error <> 0
+begin
+   print 'ERROR AL ELIMINAR tabla bc_p_impuestos'
+end
+go
+
+/*INSERTO REGISTROS*/
+insert into cob_bcradgi..bc_p_impuestos (
+im_impuesto,				im_d_sp,					im_d_vista,
+im_f_desde,					im_f_hasta,					im_m_disenio,
+im_m_bajada_dif,			im_c_nemonico_archivo,		im_m_separador_archivo,
+im_d_formato_fecha_archivo )
+values ('SELLJUJUY', 'cob_bcradgi..sp_selljujuy', 'cob_bcradgi..bc_v_selljujuy_1', null, null, 'A', 'S', 'P', '|', null)
+
+
+/*CONTROL ERROR DE INSERCION*/
+if @@error <> 0
+begin
+   print 'ERROR AL INSERTAR tabla bc_p_impuestos'
+end
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Para compilar desde Visual Studio Code
+
+{
+   // See https://go.microsoft.com/fwlink/?LinkId=733558
+   // for the documentation about the tasks.json format
+   "version": "2.0.0",
+   "tasks": [
+     {
+        "label": "SYB2_run_no_output",
+        "type": "shell",
+        "command": "C:/MSSQL/BINN/ISQL.EXE -i${file} -w8920 -Umbocalan -PMArtes+25 -SSYBSRV2",
+        "group": {
+           "kind": "build",
+           "isDefault": true
+        },
+        "presentation": {
+           "reveal": "always",
+           "panel": "new"
+        }
+     }
+  ]
+}
+----------------------------------------------------------------------------------------------------------------------------------
+
+Para compilar desde Notepad++
+
+npp_save
+
+CD $(CURRENT_DIRECTORY)
+
+cls
+
+C:\Program Files (x86)\MSSQL\BINN\ISQL.EXE -Uososa -Paccusys2019 -Ssybsrv2 -w8920 -i "$(FULL_CURRENT_PATH)"
+
+C:\ISQL\ISQLW.EXE
+
+----------------------------------------------------------------------------------------------------------------------------------
+Interactive SQL del Hipotecario
+Deslogue de usuario
+
+update cobis..in_login
+set lo_fecha_out = getdate()
+where lo_login = 'fdlt11'
+and lo_fecha_out = null
+
+----------------------------------------------------------------------------------------------------------------------------------
+USUARIO Y PASS BST
+
+USR: EX7488 - PWD: Bst654321+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+cob_bcradgi..sp_helptext vista, null, null, showsql
+
