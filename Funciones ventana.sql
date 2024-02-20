@@ -2,10 +2,10 @@ SELECT Book, FORMAT(SUM(Monto), 'C', 'en-US') as SumaxBook
 FROM PROD.dbo.BLOTTER
 group by Book
 
-Book	SumaxBook
+/*Book	SumaxBook
 BANKING	116908222,85699011
 CONTA	895,944
-TRADING	5099802734,325779
+TRADING	5099802734,325779*/
 
 /*Funcion ventana agrupado por Book agregando columna Total x Monto para cada especie*/
 SELECT
@@ -17,7 +17,7 @@ SELECT
 FROM PROD.dbo.BLOTTER
 ORDER BY Book;
 
-Cliente                         Plazo	Book	Monto	    TotalMontoxBook
+/*Cliente                         Plazo	Book	Monto	    TotalMontoxBook
 EMPRESA-000595	                0	    BANKING	$2,240.00	$116,908,222.86
 MONEDA PATAGONIA FONDO DE INVE	0	    BANKING	$1.00	    $116,908,222.86
 BBVA BANCO FRANCES	            2	    BANKING	$1.00	    $116,908,222.86
@@ -27,7 +27,7 @@ BBVA BANCO FRANCES	            0	    BANKING	$1.00	    $116,908,222.86
 BBVA BANCO FRANCES	            0	    BANKING	$1.00	    $116,908,222.86
 BBVA BANCO FRANCES	            0	    BANKING	$1.00	    $116,908,222.86
 BBVA BANCO FRANCES	            0	    BANKING	$1.00	    $116,908,222.86
-BBVA BANCO FRANCES	            -281	BANKING	$1.00	    $116,908,222.86
+BBVA BANCO FRANCES	            -281	BANKING	$1.00	    $116,908,222.86 */
 
 /*Idem anterior con la funcion promedio*/
 SELECT
@@ -39,7 +39,7 @@ SELECT
 FROM PROD.dbo.BLOTTER
 ORDER BY Book, Cliente;
 
-Cliente             Plazo   Book	Monto	PromMontoxBook
+/*Cliente             Plazo   Book	Monto	PromMontoxBook
 BANCO PATAGON       2	    BANKING	$1.00	$5,082,966.21
 BBVA BANCO FRANCES	2	    BANKING	$1.00	$5,082,966.21
 BBVA BANCO FRANCES	2	    BANKING	$172.38	$5,082,966.21
@@ -49,7 +49,7 @@ BBVA BANCO FRANCES	0	    BANKING	$1.00	$5,082,966.21
 BBVA BANCO FRANCES	0	    BANKING	$1.00	$5,082,966.21
 BBVA BANCO FRANCES	0	    BANKING	$1.00	$5,082,966.21
 BBVA BANCO FRANCES	-281	BANKING	$1.00	$5,082,966.21
-BBVA BANCO FRANCES	0	    BANKING	$1.00	$5,082,966.21
+BBVA BANCO FRANCES	0	    BANKING	$1.00	$5,082,966.21*/
 
 /*-----------------------------------------------------------*/
 CREATE TABLE #TempSuma (
@@ -93,8 +93,8 @@ SELECT * FROM #TempSuma;
 -- Eliminar la tabla temporal
 DROP TABLE #TempSuma;
 
-|SumaResultado|	PrecioAgregado|
-|*************|***************|
+/* SumaResultado|	PrecioAgregado|
+*************|***************|
 2.00	        2
 3.40	        1,4
 4.90	        1,5
@@ -142,4 +142,4 @@ DROP TABLE #TempSuma;
 62.44	        2
 64.44	        2
 66.44	        2
-68.44	        2
+68.44	        2 */
