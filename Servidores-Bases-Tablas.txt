@@ -1,0 +1,25 @@
+Visual Mesa Produccion
+SQL_MESA_PROD\SQLMESA
+
+Visual Fondos Produccion
+SQL_IAM_PROD
+
+Query Totalizador
+
+SELECT *
+FROM OPERACIONES o
+    LEFT JOIN OPERACIONES_EXTRADATA x ON x.NroOperacion = o.MinManual
+    JOIN MOVIMIENTOS_FONDOS m ON m.MinManual = o.MinManual
+    JOIN TESORO ag ON ag.Codigo = -m.ProdNro
+    LEFT JOIN RELACION_MOVIMIENTOSFONDOS_TOTALES r ON r.MinManual = m.MinManual
+WHERE
+    o.Tipo NOT IN ('TOMCA', 'COLCA')
+    AND m.FVnc <= (SELECT UltimoIni FROM PARAM_GLOBAL)
+    AND m.CodMov = 'CtaExt'
+    AND m.EstinfoCod IS NULL
+    AND m.EstadoCod IN ('aImp', 'Pend','aNet', 'QFPend')
+    AND ag.IndiNeteo = 'E'    -- totaliza por especie
+    AND NOT EXISTS (SELECT 1 FROM RELACION_MOVIMIENTOSFONDOS_TOTALES r WHERE r.MinManual = m.MinManual and r.Tratada = 'Q')
+    AND NOT EXISTS (SELECT 1  FROM MOVIMIENTOS_FONDOS m2 WHERE m2.MinManual = m.MinManual AND m2.EstinfoCod IS NOT NULL)
+    --and x.PEP is null
+    ORDER BY o.MinManual;
