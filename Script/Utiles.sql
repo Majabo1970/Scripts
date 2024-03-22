@@ -1,7 +1,7 @@
 -- CALCULAR EL PRIMER DIA DEL MES
 declare
-	@w_f_primerdia	varchar(10), --> varchar por el print, sino datetime
-	@i_fecha_inf	datetime
+    @w_f_primerdia	varchar(10), --> varchar por el print, sino datetime
+    @i_fecha_inf	datetime
 
 select @i_fecha_inf = '10/31/2022'
 
@@ -12,7 +12,7 @@ print @w_f_primerdia
 ---------------------------------------------------------------------------------------
 --SQR-Quitar las barras de fecha y poner ddmmaaaa
 
-str_replace(convert(varchar(10),im_f_hasta,103), '/', null)
+select str_replace (convert(varchar(10),im_f_hasta,103), '/', null)
 
 ---------------------------------------------------------------------------------------
 --CALCULO EL PRIMER DIA DEL AÑO DESDE LA FECHA DE INFORMACION
