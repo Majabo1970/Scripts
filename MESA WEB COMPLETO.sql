@@ -17,7 +17,7 @@ SELECT * FROM  [dbo].[VW_MOVFON_ALL]            -- Movimietnos completos todas
 
 SELECT * FROM ..COMISIONES                      -- Comisiones
 SELECT * FROM ..DOTBRTIT                        -- Relacion Raiz-CliNum
-SELECT * FROM ..MndMesa                         -- Operaciones Mesa por mandato (ORDENES)
+SELECT * FROM ..MndMesa                         -- Operaciones Mesa por mANDato (ORDENES)
 SELECT * FROM ..OPERACIONES_EXTRADATA
 SELECT * FROM ..ORDENES_EXTRADATA
 SELECT * FROM ..RUEDAS                          -- Ruedas
@@ -83,12 +83,12 @@ WHERE TablaId = 221
 SELECT * FROM [Custodia]..[_ConceptoGrupo]
 WHERE CptoCod = 101
 
-insert into [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 1 , null, null, 'N' )
 
-insert into [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 2 , null, null, 'N' )
-insert into [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 4 , null, null, 'N' )
 
 --Les comparto script para nuevos conceptos de especies en Items de Tablas.
@@ -111,18 +111,18 @@ GO
 
 --******************CONSULTAS UTILES DE MESA WEB*********************************************************
 --------------------responsable de una operacion-----------------------------
-SELECT * FROM MndMesa WHERE FCargaMnd >= '20170113' and Responsable = '4aHomeBank' and TipoOp = 'Cmp'
+SELECT * FROM MndMesa WHERE FCargaMnd >= '20170113' AND Responsable = '4aHomeBank' AND TipoOp = 'Cmp'
 
 --confimar si entro un operacion de fondos
 SELECT * FROM _Op WHERE AdhNro = 375768
 
 --------------------------------------------OPERACIONES BORRADAS------------------------------------------
 --confirmar si se borro una operacion de fondos
-SELECT * FROM OpBorradas WHERE Cliente  = 'UBIRIA JUAN MANUEL' and FHBaja >= '20170116'
+SELECT * FROM OpBorradas WHERE Cliente  = 'UBIRIA JUAN MANUEL' AND FHBaja >= '20170116'
 
 ------------------------------------ESPECIE-----------------------------------------------------------------
 
---***************** Merval tiene que estar cargada la moneda en que se eta operando para la especie en la siguiente tabla para MERVAL $ y USD
+--***************** Merval tiene que estar cargada la moneda en que se eta operANDo para la especie en la siguiente tabla para MERVAL $ y USD
 SELECT * FROM  [dbo].[RELACION_ESPECIE_MONEDA] WHERE EspecieCodigo='AA17D'
 
 --******************** Tanto para MAE COMO MERVAL tiene que estar cargada el mercado para la especie en la siguiente tabla para MERVAL(BlsPiso en talon) y MAE (talon BrkBolNum)
@@ -148,11 +148,11 @@ WHERE MinManual = '2078722'
 --*****************para saber motivo de rechazo DE UNA ORDEN*
 
 SELECT MotivoRechazo,* FROM PROD..MndMesa m,PROD..ORDENES_EXTRADATA e
-WHERE m.MndNro = e.MndNro and e.MndNro > 50000001
-and FCargaMnd >= '20150120'
+WHERE m.MndNro = e.MndNro AND e.MndNro > 50000001
+AND FCargaMnd >= '20150120'
 
 --ejemplo
-SELECT * FROM MndMesa WHERE EspPpal = 'I15M7'  and FCargaMnd >= '20170126 15:12'
+SELECT * FROM MndMesa WHERE EspPpal = 'I15M7'  AND FCargaMnd >= '20170126 15:12'
 SELECT * FROM ORDENES_EXTRADATA WHERE MndNro = 50011817
 
 --***************comom se agrupa conceptos/grupos/categorias  para 1 especie
@@ -207,7 +207,7 @@ FROM [PROD].[dbo].[GRUPOS_ESPECIE_PIZARRA]
 
 SELECT IdGrupoEspecie, * FROM SPREAD_PIZARRA
 WHERE IdGrupoEspecie = 1
-and Moneda = 2
+AND Moneda = 2
 ORDER BY 1
 
 --*************************PROBLEMAS CON CLINETE REVISAR**************************************************************************
@@ -229,7 +229,7 @@ SELECT * FROM
 
 SELECT * FROM [Custodia].[dbo].[RelRaizCliente] WHERE RaizNro='375768'
 SELECT * FROM Custodia.dbo._Cuenta WHERE AdhNro='375768'
-SELECT * FROM _SaldoCtaEsp WHERE CtaNro='500015108' and IndiVigencia='S'
+SELECT * FROM _SaldoCtaEsp WHERE CtaNro='500015108' AND IndiVigencia='S'
 
 
 --******************************ARREGLO POR TIPO DE DOCUMENTO DIFERE DE AS400 Y MESA WEB*******************************
@@ -248,13 +248,13 @@ SELECT * FROM dbo.INSIO_NODE_ACTIVE
 SELECT * FROM dbo.INSIO_NODE_AVAILABLE
 
 SELECT ESTADO,SUBSTRING(SIOPEL_MESSAGE,28,4),* FROM [PROD].[dbo].[INSIO_MESSAGES]
-WHERE FECHA > '20150119' --and SIOPEL_MESSAGE like '88663' --ESTADO = 'ERROR'
---and ( SUBSTRING(SIOPEL_MESSAGE,28,4) = '7020' OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0105'  OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0205' )
+WHERE FECHA > '20150119' --AND SIOPEL_MESSAGE like '88663' --ESTADO = 'ERROR'
+--AND ( SUBSTRING(SIOPEL_MESSAGE,28,4) = '7020' OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0105'  OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0205' )
 ORDER BY FECHA DESC
 
 SELECT MotivoRechazo,* FROM PROD..MndMesa m,PROD..ORDENES_EXTRADATA e
-WHERE m.MndNro = e.MndNro and e.MndNro > 50000001
-and FCargaMnd >= '20150120'
+WHERE m.MndNro = e.MndNro AND e.MndNro > 50000001
+AND FCargaMnd >= '20150120'
 
 --***********************-LOG SIOPEL CON ERROR  RETURNS 2 ELEMNTS O MAS *****************************************************************
 
@@ -288,7 +288,7 @@ SELECT top 10* FROM _Esp WHERE CodMAE='I10Y7'
 
 --SE DEBE BUSCAR PARA LA CUENTA TÍTIULOS EN CUESTIÓN TODAS LOS MOVIMIENTOS DE FONDOS PENDIENTES ( TABLA MOVFOND)
 
-SELECT * FROM dbo._MovFon WHERE CtaNro='500017847' and EstadoCod='Pend'
+SELECT * FROM dbo._MovFon WHERE CtaNro='500017847' AND EstadoCod='Pend'
 
 --SE DEBE BUSCAR PARA LA ESPECIE CUESTIÓN TODAS LAS FECHAS DE LOS PAGOS CARGADOS ( TABLA CUSTODIA.._DERECHO)
 
@@ -398,11 +398,11 @@ SELECT * FROM Custodia.._Adhesion WHERE Numero = '863559'
 SELECT * FROM Custodia..RelRaizCliente WHERE RaizNro = '863559'
 
 -- SI NO SE PUEDE CERRAR MESA POR FALTA DE PRECIOS EN LOS FONDOS  precio fci
-SELECT * FROM _Op WHERE Tr in (SELECT Tr FROM FCI) and Precio = 0
+SELECT * FROM _Op WHERE Tr in (SELECT Tr FROM FCI) AND Precio = 0
 
---update _Op SET Precio = CPago / CPpal, Testigo  = CPago / CPpal  WHERE Tr in (SELECT Tr FROM FCI) and Precio = 0
+--update _Op SET Precio = CPago / CPpal, Testigo  = CPago / CPpal  WHERE Tr in (SELECT Tr FROM FCI) AND Precio = 0
 
-SELECT * FROM _Op WHERE Tr in (SELECT Tr FROM FCI) and Precio = 0
+SELECT * FROM _Op WHERE Tr in (SELECT Tr FROM FCI) AND Precio = 0
 
 -- SI NO SE PUEDE CERRAR MESA PORQUE LAS OPERACIONES QUEDARON SIN CUENTA FORMAL
 
@@ -469,15 +469,15 @@ SELECT * FROM _Cierre ORDER BY Fecha desc
 SELECT * FROM _Cierre WHERE Abrev = 'BFC9O'                                   -- 'BODEN 2015' ORDER BY Fecha desc
 SELECT * FROM _Cierre WHERE Abrev = 'TS' ORDER BY Fecha desc
 SELECT * FROM _Cierre WHERE Abrev = 'MIRG' ORDER BY Fecha desc
-SELECT * FROM _Cierre WHERE Abrev = 'MIRG' ORDER BY Fecha desc                -- and cast(Fecha As Date) = '20150213'
-SELECT * FROM _Cierre WHERE Abrev = 'BODEN 2015' and cast(Fecha As Date) = '20150610'
+SELECT * FROM _Cierre WHERE Abrev = 'MIRG' ORDER BY Fecha desc                -- AND cast(Fecha As Date) = '20150213'
+SELECT * FROM _Cierre WHERE Abrev = 'BODEN 2015' AND cast(Fecha As Date) = '20150610'
 
 /*
-update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'MIRG' and cast(Fecha As Date) = '20150213'
-update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'TS' and cast(Fecha As Date) = '20150617'
-update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'BODEN 2015' and cast(Fecha As Date) = '20150617'
-update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'MIRG' and cast(Fecha As Date) = '20150213'
-update _Cierre set Cierr = 16.416 WHERE Abrev = 'TS' and cast(Fecha As Date) = '20150611'
+update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'MIRG' AND cast(Fecha As Date) = '20150213'
+update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'TS' AND cast(Fecha As Date) = '20150617'
+update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'BODEN 2015' AND cast(Fecha As Date) = '20150617'
+update _Cierre set Fecha = cast(getDate()-1 As Date) WHERE Abrev = 'MIRG' AND cast(Fecha As Date) = '20150213'
+update _Cierre set Cierr = 16.416 WHERE Abrev = 'TS' AND cast(Fecha As Date) = '20150611'
 */
 
 SELECT 16.416 + 0.001
@@ -486,9 +486,9 @@ SELECT trunc_date()
 SELECT * FROM _Cierre WHERE Abrev='VALE'
 
 --UPDATE  _Cierre SET Fecha = '2017-05-22'
---WHERE Abrev = 'VALE' and Fecha = '2017-05-17'
+--WHERE Abrev = 'VALE' AND Fecha = '2017-05-17'
 
-SELECT * FROM  _Cierre WHERE Abrev = 'AA17D' and Fecha = '2016-11-17'
+SELECT * FROM  _Cierre WHERE Abrev = 'AA17D' AND Fecha = '2016-11-17'
 
 --UPDATE Precios
 --SET Cupon  = 20
@@ -574,7 +574,7 @@ WHERE EspPpal = 'TECO2'
 --update PROD.._Esp
 --SET CuponActual = 18
 --WHERE Abrev = 'AA17D'
---and CuponActual = 17
+--AND CuponActual = 17
 
 SELECT *  FROM PROD.._Esp
 WHERE Abrev = 'AA17D'
@@ -588,14 +588,14 @@ WHERE Abrev like '%TECO2%'
 Update  Custodia.._SaldoCtaEsp
 SET CupNro = 18
 WHERE EspAbrev = 'AA17D'
-and CtaNro = '500000005'
-and IndiVigencia = 'S'
+AND CtaNro = '500000005'
+AND IndiVigencia = 'S'
 */
 
 SELECT * FROM Custodia.._SaldoCtaEsp
 WHERE EspAbrev = 'AA17D'
-and CtaNro = '500000005'
-and IndiVigencia = 'S'
+AND CtaNro = '500000005'
+AND IndiVigencia = 'S'
 
 
 -- Update  PROD..Tr
@@ -617,3 +617,37 @@ WHERE Esp = 'AA17D'
 -- WHERE Abrev= 'TECO2'
 
 SELECT * FROM Tr WHERE EspPpal = 'TECO2'
+
+/*Comparto los querys al equipo! Mñana vemos en la daily algo que pidió OMI! Para que estén al tanto ¡ abz */
+
+
+SELECT AdhNro, -CantAprox cant
+INTO #t
+FROM MndMesa
+WHERE EspPpal = 'AL30'
+AND Plazo = 0
+AND Status = 'E'
+AND TipoOp = 'Cmp'
+AND FCargaMnd >= '20240304'
+
+INSERT #t
+SELECT AdhNro, CantAprox cant
+FROM MndMesa
+WHERE EspPpal = 'AL30'
+AND Plazo = 0
+AND Status = 'E'
+AND TipoOp = 'Vnta'
+AND FCargaMnd BETWEEN '20240301' AND '20240307'
+
+SELECT AdhNro, sum(cant)
+FROM #t
+GROUP BY AdhNro
+HAVING sum(cant) > 0
+ORDER BY AdhNro
+
+--drop table #t
+
+SELECT Status, * FROM MndMesa  WHERE EspPpal = 'AL30' 
+AND AdhNro IN (######)
+AND FCargaMnd >= '20240304' AND Plazo = 0
+ORDER BY AdhNro, FCargaMnd DESC
