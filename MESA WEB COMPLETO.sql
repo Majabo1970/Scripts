@@ -651,3 +651,11 @@ SELECT Status, * FROM MndMesa  WHERE EspPpal = 'AL30'
 AND AdhNro IN (######)
 AND FCargaMnd >= '20240304' AND Plazo = 0
 ORDER BY AdhNro, FCargaMnd DESC
+
+
+/*********Cancelación cf - Job: CFSGAE - tabla CFTBMWCR***********************/
+--Verificar operaciones del mes anterior que no esten en estado pendiente
+
+Select * from VW_OPERACIONES_ALL where Tipo like '%TOM%' order by FchVnc desc
+
+Select * from VW_OPERACIONES_ALL where Tipo like '%COLAL%' order by FchVnc desc
