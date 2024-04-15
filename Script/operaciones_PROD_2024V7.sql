@@ -15,7 +15,7 @@ DECLARE @FHasta datetime = (SELECT dateadd(second, -1, dateadd(month, @PMes, @PF
 SELECT  EspAbrev
 INTO    #esp
 FROM    Custodia.._RelEspGrupo  r WITH(NOLOCK),
-        Custodia.._ItemsDeTablAS i
+        Custodia.._ItemsDeTablas i
 WHERE   r.GrEspCod = i.ItemCod
 AND r.CptoCod = 1
 AND i.TablaId = 221
@@ -133,7 +133,7 @@ DELETE FROM #tmp WHERE Tipo IN ('ACmp','AVnta','CORLiq');
 
 
 
-/*Buscamos los valORes del dolar para valorizar las especies en dolares*/
+/*Buscamos los valores del dolar para valorizar las especies en dolares*/
 WITH Cmt_EspecieFecha (EspAbrev, FchMov, FchCierr)
 AS (
     SELECT C.Abrev, M.FchOrg, MAX(C.Fecha)
@@ -237,7 +237,7 @@ SELECT
     b.Responsable
 FROM #tmp a
 INNER JOIN PROD..VW_OPERACIONES_ALL b
-ON a.MinManual=b.MinManual 
+ON a.MinManual = b.MinManual 
 WHERE a.Tipo IN ('Cmp','Vnta')
 ORDER BY Tr,FchOrg, MinManual
 
