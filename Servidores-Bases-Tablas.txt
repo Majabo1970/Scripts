@@ -23,3 +23,10 @@ WHERE
     AND NOT EXISTS (SELECT 1  FROM MOVIMIENTOS_FONDOS m2 WHERE m2.MinManual = m.MinManual AND m2.EstinfoCod IS NOT NULL)
     --and x.PEP is null
     ORDER BY o.MinManual;
+
+select top 10 * from OPERACIONES_EXTRADATA
+where NroOperacion in (2152039,6735883,6735895)
+
+--UPDATE OPERACIONES_EXTRADATA
+--SET PEP = 'N'
+--WHERE NroOperacion in (2152039,6735883,6735895)
