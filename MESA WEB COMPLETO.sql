@@ -659,3 +659,38 @@ ORDER BY AdhNro, FCargaMnd DESC
 Select * from VW_OPERACIONES_ALL where Tipo like '%TOM%' order by FchVnc desc
 
 Select * from VW_OPERACIONES_ALL where Tipo like '%COLAL%' order by FchVnc desc
+
+
+/*las cuentas comitentes que no tengan movimientos en los últimos 180 días y que no tengan saldos
+Que solo sean Titulos y no tengan ni pesos ni dolares*/
+
+SELECT DISTINCT CtaFormal, FConcil
+FROM PROD..VW_MOVFON_ALL M
+INNER JOIN PROD..Cte C
+ON 1=1
+WHERE M.FConcil <= DATEADD(DAY,-180,C.UltimoIni)
+AND M.CodMov = 'CtaTit'
+ORDER BY M.FConcil DESC
+
+SELECT *
+INTO #tmp
+FROM Custodia.._Cuenta
+WHERE EstadoCod <> 'nActi'
+AND CtaFormal NOT IN (
+			      SELECT DISTINCT CtaFormal
+			      FROM PROD..VW_MOVFON_ALL M
+			      INNER JOIN PROD..Cte C
+			      ON 1 = 1
+			      WHERE M.FConcil > DATEADD(DAY,-180,C.UltimoIni)
+			      AND M.CodMov = 'CtaTit')
+
+
+SELECT DISTINCT *
+FROM #tmp t
+WHERE t.CtaFormal NOT IN (
+				  SELECT CtaFormal FROM Custodia.._SaldoCtaEsp
+				  WHERE (IndiVigencia = 'S'
+				  AND Cantidad > 0)
+				  OR EspAbrev IN (SELECT Tr FROM PROD..FCI)
+				  OR EspAbrev not in ('$', 'U$S')
+				  )
