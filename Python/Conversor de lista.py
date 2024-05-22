@@ -28,4 +28,4 @@ for i in range(0, len(registros), tamaño_grupo):
 # Escribir los grupos de registros en el archivo de salida
 with open(nombre_archivo_salida, 'w') as archivo_salida:
     for grupo in grupos:
-        archivo_salida.write(grupo + "','")
+        archivo_salida.write(grupo + "',\n'")
