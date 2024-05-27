@@ -6,29 +6,29 @@
 
 --***********************TABLAS  UTILES DE MESA WEB*************************************************************************
 --DATOS DE CLIENTES
-SELECT * FROM .._Arch                           -- Operaciones (historico=
-SELECT * FROM .._Op                             -- Operaciones ( 5 dias o no liquidadas)
-SELECT * FROM [dbo].[VW_OPERACIONES_ALL]        -- Todas
-SELECT * FROM .._Cli                            -- Datos Cliente
-SELECT * FROM .._Esp                            -- Datos Especies
-SELECT * FROM .._MovArch                        -- Mov Operaciones
-SELECT * FROM .._MovFon                         -- Mov Fondos ( 5 dias o no liquidadas)
-SELECT * FROM  [dbo].[VW_MOVFON_ALL]            -- Movimietnos completos todas
+SELECT * FROM PROD.._Arch                           -- Operaciones (historico=
+SELECT * FROM PROD.._Op                             -- Operaciones ( 5 dias o no liquidadas)
+SELECT * FROM PROD..VW_OPERACIONES_ALL              -- Todas
+SELECT * FROM PROD.._Cli                            -- Datos Cliente
+SELECT * FROM PROD.._Esp                            -- Datos Especies
+SELECT * FROM PROD.._MovArch                        -- Mov Operaciones
+SELECT * FROM PROD.._MovFon                         -- Mov Fondos ( 5 dias o no liquidadas)
+SELECT * FROM PROD..VW_MOVFON_ALL                         -- Movimietnos completos todas
 
-SELECT * FROM ..COMISIONES                      -- Comisiones
-SELECT * FROM ..DOTBRTIT                        -- Relacion Raiz-CliNum
-SELECT * FROM ..MndMesa                         -- Operaciones Mesa por mANDato (ORDENES)
-SELECT * FROM ..OPERACIONES_EXTRADATA
-SELECT * FROM ..ORDENES_EXTRADATA
-SELECT * FROM ..RUEDAS                          -- Ruedas
-SELECT * FROM ..SEGMENTO                        -- Segmentos
-SELECT * FROM .._Cierre                         -- Precios Cierre
-SELECT * FROM dbo.CATIVOS_VALORES               -- Bloqueos por cativos
+SELECT * FROM PROD..COMISIONES                      -- Comisiones
+SELECT * FROM PROD..DOTBRTIT                        -- Relacion Raiz-CliNum
+SELECT * FROM PROD..MndMesa                         -- Operaciones Mesa por MAndato (ORDENES)
+SELECT * FROM PROD..OPERACIONES_EXTRADATA
+SELECT * FROM PROD..ORDENES_EXTRADATA
+SELECT * FROM PROD..RUEDAS                          -- Ruedas
+SELECT * FROM PROD..SEGMENTO                        -- Segmentos
+SELECT * FROM PROD.._Cierre                         -- Precios Cierre
+SELECT * FROM PROD..CATIVOS_VALORES                 -- Bloqueos por cativos
 
 INSIOb
 SELECT * FROM ..INSIO_MESSAGES ORDER BY FECHA desc
 SELECT * FROM ..INSIO_NODE_ACTIVE
-SELECT * FROM  SIOConfirmOp                     -- Para revisar operaciones rechazadas
+SELECT * FROM  SIOConfirmOp                         -- Para revisar operaciones rechazadas
 
 MESIO
 SELECT * FROM ..MESIO_NODE_ACTIVE
@@ -37,14 +37,14 @@ SELECT * FROM ..MESIO_ORDEN
 
 
 CUSTODIA
-SELECT * FROM .._Adhesion                       -- Clientes
-SELECT top 10 * FROM .._Cuent                   -- Datos de Cuenta
-SELECT top 10 * FROM .._SaldoCtaEsp
+SELECT * FROM PROD.._Adhesion                       -- Clientes
+SELECT top 10 * FROM PROD.._Cuent                   -- Datos de Cuenta
+SELECT top 10 * FROM PROD.._SaldoCtaEsp
 
 
 COMISIONES
 SELECT * FROM COMISIONES
-SELECT * FROM dbo.COMISIONES _GRUPO_RAICES
+SELECT * FROM COMISIONES _GRUPO_RAICES
 
 
 SELECT g.nroRaiz, c.*
@@ -80,15 +80,15 @@ SELECT * FROM Custodia.._ItemsDeTablas
 WHERE TablaId = 221
 
 --RelacionConceptoGrupo
-SELECT * FROM [Custodia]..[_ConceptoGrupo]
+SELECT * FROM Custodia.._ConceptoGrupo
 WHERE CptoCod = 101
 
-INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO Custodia.._ConceptoGrupo (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 1 , null, null, 'N' )
 
-INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO Custodia.._ConceptoGrupo (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 2 , null, null, 'N' )
-INSERT INTO [Custodia]..[_ConceptoGrupo] (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
+INSERT INTO Custodia.._ConceptoGrupo (CptoCod,GrEspCod,UMUsrCod,IntervAltaNro,IndiAAut)
 values (101, 4 , null, null, 'N' )
 
 --Les comparto script para nuevos conceptos de especies en Items de Tablas.
@@ -123,21 +123,21 @@ SELECT * FROM OpBorradas WHERE Cliente  = 'UBIRIA JUAN MANUEL' AND FHBaja >= '20
 ------------------------------------ESPECIE-----------------------------------------------------------------
 
 --***************** Merval tiene que estar cargada la moneda en que se eta operANDo para la especie en la siguiente tabla para MERVAL $ y USD
-SELECT * FROM  [dbo].[RELACION_ESPECIE_MONEDA] WHERE EspecieCodigo='AA17D'
+SELECT * FROM  RELACION_ESPECIE_MONEDA WHERE EspecieCodigo='AA17D'
 
 --******************** Tanto para MAE COMO MERVAL tiene que estar cargada el mercado para la especie en la siguiente tabla para MERVAL(BlsPiso en talon) y MAE (talon BrkBolNum)
-SELECT * FROM  [dbo].Tr WHERE EspPpal  ='L2DE7'
+SELECT * FROM  Tr WHERE EspPpal  ='L2DE7'
 
 --********************* REVISAR EN LA ESPECIE
 
-SELECT * FROM  _Esp WHERE Abrev  ='L2DE7' -- Cargado el codigo MAE y el Codigo CV para MERVAL
+SELECT * FROM _Esp WHERE Abrev  ='L2DE7' -- Cargado el codigo MAE y el Codigo CV para MERVAL
 
 --********************** REVISAR PRECIOS
-SELECT TOP 1000 [CodEspecie],[IdGrupo]
-FROM [PROD].[dbo].[GRUPOS_ESPECIE_PIZARRA_LIST] WHERE CodEspecie='L2DE7'
+SELECT TOP 1000 CodEspecie,IdGrupo
+FROM PROD..GRUPOS_ESPECIE_PIZARRA_LIST WHERE CodEspecie='L2DE7'
 
-SELECT TOP 1000 [Id],[Descripcion]
-FROM [PROD].[dbo].[GRUPOS_ESPECIE_PIZARRA]
+SELECT TOP 1000 Id,Descripcion
+FROM PROD..GRUPOS_ESPECIE_PIZARRA
 
 SELECT IdGrupoEspecie, * FROM SPREAD_PIZARRA
 
@@ -168,7 +168,7 @@ SELECT * FROM _ItemsDeTablas WHERE TablaId = 221
 SELECT * FROM _ConceptoGrupo
 
 --Conceptos grupos de 1 especie
-SELECT * FROM [Custodia].[dbo].[_RelEspGrupo] WHERE EspAbrev = 'xxxx'
+SELECT * FROM Custodia.._RelEspGrupo WHERE EspAbrev = 'xxxx'
 
 --******************FCI QUE NO VIAJAN A SIOPEL POR NRO DE CNV  INCOMPLETO y CODIGO DE BANCA 403 FCI*******************************************
 SELECT * FROM PROD.._Op
@@ -199,11 +199,11 @@ SELECT * FROM Custodia.._ItemsDeTablas WHERE TablaId = 3022 -- no existe tal ent
 
 --*************************PIZARRA DE PRECIOS*************************************************************************************
 
-SELECT TOP 1000 [CodEspecie],[IdGrupo]
-FROM [PROD].[dbo].[GRUPOS_ESPECIE_PIZARRA_LIST]
+SELECT TOP 1000 CodEspecie,IdGrupo
+FROM PROD..GRUPOS_ESPECIE_PIZARRA_LIST
 
-SELECT TOP 1000 [Id],[Descripcion]
-FROM [PROD].[dbo].[GRUPOS_ESPECIE_PIZARRA]
+SELECT TOP 1000 Id,Descripcion
+FROM PROD..GRUPOS_ESPECIE_PIZARRA
 
 SELECT IdGrupoEspecie, * FROM SPREAD_PIZARRA
 WHERE IdGrupoEspecie = 1
@@ -212,23 +212,23 @@ ORDER BY 1
 
 --*************************PROBLEMAS CON CLINETE REVISAR**************************************************************************
 
--- [Custodia].[dbo].[_Cuenta]                --Cuenta comitente (CtaNro) y raiz (AdhNro)
--- [PROD].[dbo].[_Cli]                       --Banca Patrimonial y clientes fondos
+-- Custodia.dbo._Cuenta                --Cuenta comitente (CtaNro) y raiz (AdhNro)
+-- PROD.dbo._Cli                       --Banca Patrimonial y clientes fondos
 
 -- --Contiene:  Raiz (AdhNro), clinum (HostNro)
 
--- [Custodia].[dbo].[RelRaizCliente]         --Relación raiz/clinum-
+-- Custodia.dbo.RelRaizCliente         --Relación raiz/clinum-
 
 -- --Contiene:  Raiz (RaizNro), clinum (ClienteNro), documento (DocTipo, DocNro) cuit,
 
--- [Custodia].[dbo].[_Adhesion]              --Raiz (Numero)
+-- Custodia.dbo._Adhesion              --Raiz (Numero)
 
 
 SELECT * FROM
-[Custodia].[dbo].[_Adhesion] WHERE  Numero='375768'
+Custodia.._Adhesion WHERE  Numero='375768'
 
-SELECT * FROM [Custodia].[dbo].[RelRaizCliente] WHERE RaizNro='375768'
-SELECT * FROM Custodia.dbo._Cuenta WHERE AdhNro='375768'
+SELECT * FROM Custodia..RelRaizCliente WHERE RaizNro='375768'
+SELECT * FROM Custodia.._Cuenta WHERE AdhNro='375768'
 SELECT * FROM _SaldoCtaEsp WHERE CtaNro='500015108' AND IndiVigencia='S'
 
 
@@ -239,15 +239,15 @@ SELECT * FROM _SaldoCtaEsp WHERE CtaNro='500015108' AND IndiVigencia='S'
 --*****************************MESANJES DEL INSIO***************************************************************************
 
 SELECT *
-FROM [PROD].[dbo].[INSIO_MESSAGES]
+FROM PROD..INSIO_MESSAGES
 WHERE FECHA > '2015-08-17 10:16:06.110'
 ORDER BY FECHA desc
 
-SELECT * FROM dbo.INSIO_MESSAGES ORDER BY FECHA desc
-SELECT * FROM dbo.INSIO_NODE_ACTIVE
-SELECT * FROM dbo.INSIO_NODE_AVAILABLE
+SELECT * FROM INSIO_MESSAGES ORDER BY FECHA desc
+SELECT * FROM INSIO_NODE_ACTIVE
+SELECT * FROM INSIO_NODE_AVAILABLE
 
-SELECT ESTADO,SUBSTRING(SIOPEL_MESSAGE,28,4),* FROM [PROD].[dbo].[INSIO_MESSAGES]
+SELECT ESTADO,SUBSTRING(SIOPEL_MESSAGE,28,4),* FROM PROD..INSIO_MESSAGES
 WHERE FECHA > '20150119' --AND SIOPEL_MESSAGE like '88663' --ESTADO = 'ERROR'
 --AND ( SUBSTRING(SIOPEL_MESSAGE,28,4) = '7020' OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0105'  OR SUBSTRING(SIOPEL_MESSAGE,28,4) = '0205' )
 ORDER BY FECHA DESC
@@ -288,7 +288,7 @@ SELECT top 10* FROM _Esp WHERE CodMAE='I10Y7'
 
 --SE DEBE BUSCAR PARA LA CUENTA TÍTIULOS EN CUESTIÓN TODAS LOS MOVIMIENTOS DE FONDOS PENDIENTES ( TABLA MOVFOND)
 
-SELECT * FROM dbo._MovFon WHERE CtaNro='500017847' AND EstadoCod='Pend'
+SELECT * FROM PROD.._MovFon WHERE CtaNro='500017847' AND EstadoCod='Pend'
 
 --SE DEBE BUSCAR PARA LA ESPECIE CUESTIÓN TODAS LAS FECHAS DE LOS PAGOS CARGADOS ( TABLA CUSTODIA.._DERECHO)
 
@@ -299,11 +299,11 @@ SELECT * FROM Custodia.._Derecho WHERE EspAbrev = 'BOGAR 18'
 /* CASO ANALISIS #1 COMISION COBRADA CLIENTE */
 SELECT * FROM COMISIONES
 SELECT * FROM _Cli WHERE Nombre = 'FINELLI FERRAZZINI J'
-SELECT * FROM dbo.MndMesa WHERE MndNro in ('50007837')
+SELECT * FROM MndMesa WHERE MndNro in ('50007837')
 SELECT * FROM ORDENES_EXTRADATA WHERE MndNro in ('50007837')
-SELECT * FROM dbo.MndMesaComis WHERE MndNro in ('50007837')
+SELECT * FROM MndMesaComis WHERE MndNro in ('50007837')
 SELECT * FROM _Op WHERE MinManual = '6055318'
-SELECT * FROM dbo.OpComImp WHERE MinManual in ('6055318')
+SELECT * FROM OpComImp WHERE MinManual in ('6055318')
 SELECT * FROM _Esp WHERE Abrev = 'APBR'
 SELECT * FROM Tr WHERE Nombre = 'Bls APBR'
 
@@ -316,11 +316,11 @@ AND g.Categ  = t.Categ
 /* CASO ANALISIS #2 COMISION NO COBRADA CLIENTE */
 /* NO ES CLIENTE EN MESA */
 SELECT * FROM COMISIONES
-SELECT * FROM dbo.MndMesa WHERE MndNro in ('50007819')
+SELECT * FROM MndMesa WHERE MndNro in ('50007819')
 SELECT * FROM ORDENES_EXTRADATA WHERE MndNro in ('50007819')
-SELECT * FROM dbo.MndMesaComis WHERE MndNro in ('50007819')
+SELECT * FROM MndMesaComis WHERE MndNro in ('50007819')
 SELECT * FROM _Op WHERE MinManual = '6055290'
-SELECT * FROM dbo.OpComImp WHERE MinManual in ('6055290')
+SELECT * FROM OpComImp WHERE MinManual in ('6055290')
 SELECT * FROM _Esp WHERE Abrev = 'PR13'
 SELECT * FROM Tr WHERE Nombre = 'Bls PR13'
 
@@ -363,26 +363,26 @@ SELECT * FROM ControlAccesoUsuarios
 --QUERYS PARA CAMBIAR EL HORARIO DEL SERVICIO QUE RECIBIMOS DEL MESIO...CON ESTO RECIBIMOS OPERACIONES QUE CARGA DIRETAMENTE
 --LA MESA EN DESARROLLO
 
-SELECT TOP 1000 [param_key],[param_value]
-FROM [PROD].[dbo].[MESIO_PARAMETERS] WHERE param_key IN ('sinac.scheduled.time.FROM','sinac.scheduled.time.to')
+SELECT TOP 1000 param_key,param_value
+FROM PROD..MESIO_PARAMETERS WHERE param_key IN ('sinac.scheduled.time.FROM','sinac.scheduled.time.to')
 
-UPDATE [PROD].[dbo].[MESIO_PARAMETERS]
+UPDATE PROD..MESIO_PARAMETERS
 SET param_value = '00:02'
 WHERE param_key = 'sinac.scheduled.time.FROM'
 
-UPDATE [PROD].[dbo].[MESIO_PARAMETERS]
+UPDATE PROD..MESIO_PARAMETERS
 SET param_value = '00:01'
 WHERE param_key = 'sinac.scheduled.time.to'
 
-SELECT TOP 1000 [param_key],[param_value]
-FROM [PROD].[dbo].[MESIO_PARAMETERS]
+SELECT TOP 1000 param_key,param_value
+FROM PROD..MESIO_PARAMETERS
 WHERE param_key IN ('sinac.scheduled.time.FROM','sinac.scheduled.time.to')
 
 --*******************************-CCONSULTAS VARIAS Y UTILES*****************************************************************
 
 --COTIZACIÓN VENCIDA
 SELECT * FROM MonAltam
-SELECT * FROM dbo.COMISIONES
+SELECT * FROM COMISIONES
 SELECT * FROM PARAM_GLOBAL
 SELECT * FROM _Esp WHERE Abrev like '%BODEN 2015%'
 SELECT * FROM Tr WHERE EspPpal = 'BODEN 2015'
@@ -509,7 +509,7 @@ SELECT * FROM MonAltam
 SELECT * FROM _Op
 ORDER BY FHCarga desc
 
-SELECT * FROM Custodia.dbo._AutPendiente
+SELECT * FROM Custodia.._AutPendiente
 ORDER BY IntervAltaNro desc
 
 
