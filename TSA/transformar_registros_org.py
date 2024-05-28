@@ -15,25 +15,13 @@ for line in lines[1:]:
             receiving_account = line[10:19].strip()
             amount = line[41:59].strip()
             settlement_date = line[31:39].strip()
-            
-            # Determinar el valor de currency basado en el contenido de la posición 20:25
-            codigo = line[20:25].strip()
-            if codigo == "06000":
-                currency = "EUR"
-            elif codigo == "07000":
-                currency = "USD"
-            elif codigo == "08000":
-                currency = "ARS"
-            else:
-                currency = "ARS"  # Valor por defecto si no es ninguno de los anteriores
-            
-            # Ajustar el campo payment_system
-            payment_system = f"{currency} payment system"
 
             # Ajustar source_account para que tenga 15 caracteres con "1000/" en las primeras 5 posiciones
             source_account = f"1204/{source_account.zfill(10)}"
             receiving_cash_account = f"1300/{receiving_account.zfill(10)}"
             transaction_reference = f"ICT{settlement_date}{str(seq_number).zfill(3)}"
+            payment_system = "ARS payment system"
+            currency = "ARS"
             amount_str = amount.lstrip('0') #amount_str = f"{int(amount):018}"
             description = "TRF Saldos"
             corporate_action_reference = ""
